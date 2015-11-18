@@ -2,7 +2,7 @@
 title: Caroline Liu
 email: truecliu@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-    Caroline Liu
+    ideas worth sharing
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://carolineliu.me" # the base hostname & protocol for your site
 twitter_username: caroline5
@@ -10,3 +10,5 @@ github_username:  knowcliu
 
 # Build settings
 markdown: kramdown
+
+permalink: none
