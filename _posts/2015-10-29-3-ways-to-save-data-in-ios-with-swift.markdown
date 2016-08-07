@@ -10,56 +10,69 @@ date: "2015-10-29 12:29:15 -0500"
 
 Here is how it works:
 
-    let defaults = NSUserDefaults.standardUserDefaults()
-    // Write
-    defaults.setObject("Coding Explorer", forKey: userNameKeyConstant)
-    // Read
-    if let name = defaults.stringForKey(userNameKeyConstant) { println(name) }
+{% highlight swift %}
+let defaults = NSUserDefaults.standardUserDefaults()
+// Write
+defaults.setObject("Coding Explorer", forKey: userNameKeyConstant)
+// Read
+if let name = defaults.stringForKey(userNameKeyConstant) { println(name) }
+{% endhighlight %}
 
 # 2. Document Directory
 
 The Document Directory is a great way to acces the file system in your sandbox to store larger files like images. 
 
-    func saveImageWithName(image: UIImage, imageName: String) -> String? {
-        // Save the file to Documents and store that location in the DB
-        var documentsDirectory: String?
-        var paths: [AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        
-        let data = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
-        if paths.count > 0 {
-            documentsDirectory = paths[0] as? String
-            let savePath = documentsDirectory! + "/" + imageName + ".jpg"
-            NSFileManager.defaultManager().createFileAtPath(savePath, contents: data, attributes: nil)
-            return savePath
-        }
-        return nil
-    }
+{% highlight swift %}
+func saveImageWithName(image: UIImage, imageName: String) -> String? {
+    // Save the file to Documents and store that location in the DB
+    var documentsDirectory: String?
+    var paths: [AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
 
+    let data = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
+    if paths.count > 0 {
+        documentsDirectory = paths[0] as? String
+        let savePath = documentsDirectory! + "/" + imageName + ".jpg"
+        NSFileManager.defaultManager().createFileAtPath(savePath, contents: data, attributes: nil)
+        return savePath
+    }
+    return nil
+}
+{% endhighlight %}
 
 The first step is to get a list of paths that match the Document Directory:
 
-    var paths: [AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+{% highlight swift %}
+var paths: [AnyObject] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+{% endhighlight %}
 
 Then, you really only expect to get one result, so use the first item in the list to construct a full directory path for the file you wish to store:
 
-    documentsDirectory = paths[0] as? String
-    let savePath = documentsDirectory! + "/" + imageName + ".jpg"
+{% highlight swift %}
+documentsDirectory = paths[0] as? String
+let savePath = documentsDirectory! + "/" + imageName + ".jpg"
+{% endhighlight %}
 
 Finally, save the file to the path:
     
-    NSFileManager.defaultManager().createFileAtPath(savePath, contents: data, attributes: nil)
+{% highlight swift %}
+NSFileManager.defaultManager().createFileAtPath(savePath, contents: data, attributes: nil)
+{% endhighlight %}
 
 Once you have the file stored in the Document Directory, you are free to use it:
 
-    UIImage(named: myFileLocation)
+{% highlight swift %}
+UIImage(named: myFileLocation)
+{% endhighlight %}
 
 You can also delete it:
 
-    do {
-        try NSFileManager.defaultManager().removeItemAtPath(myFileLocation!)
-    } catch {
-        print("Failed to remove file from path: \(myFileLocation)")
-    }
+{% highlight swift %}
+do {
+    try NSFileManager.defaultManager().removeItemAtPath(myFileLocation!)
+} catch {
+    print("Failed to remove file from path: \(myFileLocation)")
+}
+{% endhighlight %}
 
 # 3. Core Data
 

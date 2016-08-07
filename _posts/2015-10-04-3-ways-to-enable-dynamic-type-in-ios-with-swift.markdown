@@ -21,27 +21,30 @@ For all Labels, Buttons and Text in the storyboard, ensure the **Font style** is
 
 # 2. Preferred Font
 For any text that is set programmatically, you can update the font property like so:
-`someTextLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)`
+{% highlight swift %}
+someTextLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+{% endhighlight %}
 
 # 3. NSNotification
 You can do other things with your UI by observing the `UIContentSizeCategoryDidChangeNotification` notification.
 
-    let center = NSNotificationCenter.defaultCenter()
+{% highlight swift %}
+let center = NSNotificationCenter.defaultCenter()
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
 
-        center.addObserverForName(UIContentSizeCategoryDidChangeNotification,
-            object: UIApplication.sharedApplication(),
-            queue: NSOperationQueue.mainQueue()) { notification in
-              let c = notification.userInfo?[UIContentSizeCategoryNewValueKey]
-        }
+    center.addObserverForName(UIContentSizeCategoryDidChangeNotification,
+        object: UIApplication.sharedApplication(),
+        queue: NSOperationQueue.mainQueue()) { notification in
+          let c = notification.userInfo?[UIContentSizeCategoryNewValueKey]
     }
+}
 
-    override func viewDidDisappear(animated: Bool) {
-        center.removeObserver(UIContentSizeCategoryDidChangeNotification)
-    }
-
+override func viewDidDisappear(animated: Bool) {
+    center.removeObserver(UIContentSizeCategoryDidChangeNotification)
+}
+{% endhighlight %}
 
 # Summary
 I've demonstrated three ways you can build the Dynamic Type feature into your iOS apps. If you keep these tips in mind while you are developing your UI, you will have happy users. Enjoy!
